@@ -1,0 +1,35 @@
+.clock{
+  grid-row: 3/4;
+  grid-column: 2/11;
+  background-color: $light-gray-one;
+  clip-path: polygon(7% 0, 100% 0, 93% 100%, 0% 100%);
+  -webkit-clip-path: polygon(7% 0, 100% 0, 93% 100%, 0% 100%);
+  z-index: 2;
+  margin-top: 50px;
+  display: grid;
+  align-self: end;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 275px));
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+  text-align: left;
+  grid-column-gap: 60px;
+  color: white;
+  font-family: 'Roboto Condensed';
+  &__title{
+    font-size: 22px;
+    line-height: 25px;
+    color: $color-yellow-one;
+  }
+  &__amount{
+    font-size: 90px;
+    font-weight: bold;
+    line-height: 115px;
+    color: white;
+  }
+  &__box{
+    margin-top: 24px;
+    display: flex;
+  }
+}
