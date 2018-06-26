@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Picker from "./picker";
 import Button from "./button";
 import Clock from "./clock";
+import ChangeDate from "./changeDate";
+import LargeText from "./largeText";
 export default class App extends Component {
   constructor(){
     super();
@@ -15,14 +17,14 @@ export default class App extends Component {
     })
   }
   renderItems = () => {
-    let it = (this.state.active) ? <Clock /> : <Picker />;
-    return it;
+    return (this.state.active) ? [<Clock />,<label className="grid__remaining">Remaing until your 21st birthday</label>] : <Picker />;
   }
   render() {
     return (
       <div className="grid">
         <h1 className="grid__title">Birthday Countdown</h1>
-        <Button title="Generate Countdown" hanldeClick={this.handleGenerate}/>
+        {!this.state.active ? <Button title="Generate Countdown" handleClick={() => this.handleGenerate()}/> : <ChangeDate title="Change Date"  handleClick={() => this.handleGenerate()}/>}
+        <LargeText />
         <div className="grid__skew-dark-one">
         </div>
         <div className="grid__skew-dark-two">
