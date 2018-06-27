@@ -25,8 +25,23 @@ export default class App extends Component {
       active: (this.state.active) ? false : true
     });
     let x = setInterval(() => {
-      let countDownDate = this.state.startDate.toDate().getTime();
+      let bDay = this.state.startDate.toDate();
+      let today = new Date();
       let now = new Date().getTime();
+      let currentMonth = today.getMonth();
+      let currentDay = today.getDay();
+      let birthMonth = bDay.getMonth();
+      let birthDay = bDay.getDay();
+      if(birthMonth > currentMonth){
+        bDay.setFullYear(today.getFullYear());
+      }else if (birthMonth < currentMonth){
+        bDay.setFullYear(today.getFullYear()+1);
+      }else if(birthDay < currentDay){
+        bDay.setFullYear(today.getFullYear()+1);
+      }else{
+        bDay.setFullYear(today.getFullYear());
+      }
+      let countDownDate = bDay.getTime();
       let distance = countDownDate - now;
       let days = Math.floor(distance / (1000*24*60*60));
       let hours = Math.floor((distance % (1000*24*60*60)) / (1000*60*60));
