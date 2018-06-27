@@ -7,26 +7,40 @@ import ChangeDate from "./changeDate";
 import LargeText from "./largeText";
 
 export default class App extends Component {
-  constructor(){
+  constructor(props){
     super();
     this.state = {
       active: false,
-      startDate: Moment()
+      startDate: Moment(),
+      timeRemaing: {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      }
     }
   }
-  handleGenerate = () =>{
+  handleGenerate = () => {
     this.setState({
       active: (this.state.active) ? false : true
     });
-    console.log(`Start: ${this.state.startDate}`);
-    let countDownDate = this.state.startDate.toDate().getTime();
     let x = setInterval(() => {
+      let countDownDate = this.state.startDate.toDate().getTime();
       let now = new Date().getTime();
       let distance = countDownDate - now;
       let days = Math.floor(distance / (1000*24*60*60));
       let hours = Math.floor((distance % (1000*24*60*60)) / (1000*60*60));
       let minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
-      console.log(`There are ${days} days, ${hours} hours and ${minutes} left.`);
+      let seconds = Math.floor((distance % (1000*60)) / (1000));
+      this.setState({
+        timeRemaing: {
+          days,
+          hours,
+          minutes,
+          seconds
+        }
+      });
+      console.log(`There are ${days} days, ${hours} hours, ${minutes} minutes and ${seconds} left.`);
     }, 500);
   }
   handleChange = (date) => {
@@ -36,7 +50,7 @@ export default class App extends Component {
     });
   }
   renderItems = () => {
-    return (this.state.active) ? [<Clock />,<label className="grid__remaining">Remaing until your 21st birthday</label>] : <Picker callback={this.handleChange}/>;
+    return (this.state.active) ? [<Clock time={this.state.timeRemaing}/>,<label className="grid__remaining">Remaing until your 21st birthday</label>] : <Picker startDate={this.state.startDate} callback={this.handleChange}/>;
   }
   render() {
     return (
